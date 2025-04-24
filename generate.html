@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neuen Code generieren</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(ellipse at bottom, #0f172a, #020617);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 30px;
+      color: #facc15;
+      margin-bottom: 20px;
+    }
+
+    #code {
+      font-size: 20px;
+      margin: 20px 0;
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 12px;
+      word-break: break-all;
+    }
+
+    button {
+      background: linear-gradient(to right, #1d4ed8, #3b82f6);
+      border: none;
+      padding: 14px 20px;
+      font-size: 16px;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #64748b;
+      text-align: center;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Neuen Zugangscode generieren</h1>
+    <div id="code">Dein neuer Code erscheint hier</div>
+    <button onclick="generateCode()">Code generieren</button>
+    <div class="footer">Du kannst dich später mit diesem Code einloggen.</div>
+  </div>
+
+  <script>
+    function generateCode() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+      let code = "";
+      const savedCodes = JSON.parse(localStorage.getItem("nexusCodes") || "[]");
+
+      // Loop until a unique code is created
+      do {
+        code = "";
+        for (let i = 0; i < 20; i++) {
+          code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+      } while (savedCodes.includes(code));
+
+      // Save new code
+      savedCodes.push(code);
+      localStorage.setItem("nexusCodes", JSON.stringify(savedCodes));
+
+      document.getElementById("code").innerText = code;
+    }
+  </script>
+</body>
+</html>
