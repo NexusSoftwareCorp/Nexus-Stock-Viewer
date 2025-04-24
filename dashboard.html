@@ -1,129 +1,94 @@
-<!DOCTYPE html><html lang="de">
+<!DOCTYPE html>
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexus Stock View</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexus Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
       font-family: 'Outfit', sans-serif;
-      background: #0f172a;
+      background: radial-gradient(ellipse at bottom, #0f172a, #020617);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       color: white;
-    }header {
-  background: #1e293b;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+      padding: 20px;
+    }
 
-.menu-icon {
-  cursor: pointer;
-  font-size: 28px;
-}
+    .box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
 
-.logo {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 20px;
-  color: #facc15;
-}
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #facc15;
+    }
 
-nav {
-  position: fixed;
-  top: 0;
-  right: -250px;
-  width: 250px;
-  height: 100%;
-  background: #1e293b;
-  padding-top: 60px;
-  transition: right 0.3s ease;
-  z-index: 100;
-}
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 10px;
+      background: #1e293b;
+      color: white;
+      font-size: 16px;
+    }
 
-nav a {
-  display: block;
-  padding: 14px 24px;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  border-bottom: 1px solid #334155;
-}
+    button {
+      background: linear-gradient(to right, #16a34a, #22c55e);
+      border: none;
+      padding: 14px 20px;
+      font-size: 16px;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-nav a:hover {
-  background: #334155;
-}
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+    }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  z-index: 50;
-}
-
-.main {
-  padding: 24px;
-}
-
-.card {
-  background: #1e293b;
-  padding: 24px;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-}
-
-.price {
-  font-size: 32px;
-  color: #22c55e;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.chart-placeholder {
-  height: 200px;
-  background: linear-gradient(to top, #0f172a, #1e293b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #64748b;
-  border-radius: 10px;
-}
-
+    .error {
+      color: #f87171;
+      font-size: 14px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">NEXUS STOCK VIEW</div>
-    <div class="menu-icon" onclick="openMenu()">&#9776;</div>
-  </header>  <div class="overlay" onclick="closeMenu()" id="overlay"></div>
-  <nav id="sidebar">
-    <a href="#">Home</a>
-    <a href="#">Kaufen / Verkaufen</a>
-    <a href="#">Leaderboard</a>
-    <a href="#">Marktnews</a>
-    <a href="#">Einstellungen</a>
-  </nav>  <div class="main">
-    <div class="card">
-      <h2>Aktueller Aktienpreis</h2>
-      <div class="price">0,10 €</div>
-    </div><div class="card">
-  <h2>Live-Chart</h2>
-  <div class="chart-placeholder">Candlestick Chart (Platzhalter)</div>
-</div>
+  <div class="box">
+    <h1>Nexus Login</h1>
+    <input type="text" id="loginCode" placeholder="20-stelliger Zugangscode" maxlength="40">
+    <button onclick="checkCode()">Einloggen</button>
+    <div class="error" id="errorMsg"></div>
+  </div>
 
-  </div>  <script>
-    function openMenu() {
-      document.getElementById("sidebar").style.right = "0";
-      document.getElementById("overlay").style.display = "block";
-    }
+  <script>
+    function checkCode() {
+      const entered = document.getElementById("loginCode").value.trim();
+      const saved = JSON.parse(localStorage.getItem("nexusCodes") || "[]");
 
-    function closeMenu() {
-      document.getElementById("sidebar").style.right = "-250px";
-      document.getElementById("overlay").style.display = "none";
+      if (saved.includes(entered)) {
+        localStorage.setItem("nexus_user_code", entered); // aktiv eingeloggter User
+        window.location.href = "dashboard.html";
+      } else {
+        document.getElementById("errorMsg").innerText = "Ungültiger Code.";
+      }
     }
-  </script></body>
+  </script>
+</body>
 </html>
