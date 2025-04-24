@@ -1,124 +1,48 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nexus Stock View</title>
-  <link rel="icon" href="nexus_logo_icon.png" />
+  <meta charset="UTF-8">
+  <title>Nexus Stock View – Login</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #111;
-      color: #f5f5f5;
+      padding: 0;
+      background-color: #0f172a;
+      font-family: Arial, sans-serif;
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      justify-content: center;
+      height: 100vh;
     }
-    .logo {
-      margin-top: 20px;
+    img {
       width: 150px;
-    }
-    .title {
-      font-size: 2em;
-      font-weight: bold;
-      margin: 10px 0;
-      color: gold;
-    }
-    .card {
-      background-color: #222;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-      max-width: 400px;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin-bottom: 10px;
+      margin-bottom: 30px;
     }
     button {
-      width: 100%;
-      padding: 10px;
-      background-color: gold;
+      padding: 12px 20px;
+      margin: 10px;
+      background-color: #2563eb;
       border: none;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
       cursor: pointer;
-      margin-bottom: 10px;
     }
-    canvas {
-      background-color: #000;
-      border: 1px solid #444;
-      margin-top: 20px;
+    button:hover {
+      background-color: #1d4ed8;
     }
   </style>
 </head>
 <body>
-  <img class="logo" src="nexus_logo_icon.png" alt="Nexus Logo" />
-  <div class="title">NEXUS STOCK VIEW</div>  <div class="card">
-    <h3>Login</h3>
-    <input type="text" placeholder="20-stelliger Code" id="loginCode" />
-    <button onclick="loginUser()">Einloggen</button>
-    <button onclick="generateNewCode()">Neuen Code generieren</button>
-  </div>  <div class="card">
-    <h3>Aktienübersicht</h3>
-    <canvas id="chartCanvas" width="350" height="200"></canvas>
-    <p>Aktueller Preis: <span id="stockPrice">0.10 €</span></p>
-    <button onclick="buyStock()">Kaufen</button>
-    <button onclick="sellStock()">Verkaufen</button>
-  </div>  <script>
-    let stockPrice = 0.10;
-    let userStocks = 0;
 
-    function loginUser() {
-      const code = document.getElementById("loginCode").value.trim();
-      if (code.length !== 20) {
-        alert("Bitte gib einen 20-stelligen Code ein.");
-        return;
-      }
-      alert("Eingeloggt mit Code: " + code);
-    }
+  <!-- DEIN LOGO -->
+  <img src="nexus_logo.png" alt="Nexus Stock View Logo">
 
-    function generateNewCode() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$_';
-      let code = '';
-      for (let i = 0; i < 20; i++) {
-        code += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      document.getElementById("loginCode").value = code;
-    }
+  <!-- BUTTONS -->
+  <button onclick="window.location.href='login.html'">Mit Code anmelden</button>
+  <button onclick="window.location.href='generate.html'">Neuen Code generieren</button>
 
-    function updateChart() {
-      const ctx = document.getElementById("chartCanvas").getContext("2d");
-      ctx.clearRect(0, 0, 350, 200);
-      ctx.fillStyle = "#0f0";
-      let height = 50 + Math.random() * 100;
-      ctx.fillRect(300, 200 - height, 10, height);
-    }
-
-    function buyStock() {
-      stockPrice += 0.01;
-      userStocks++;
-      document.getElementById("stockPrice").textContent = stockPrice.toFixed(2) + " €";
-      updateChart();
-    }
-
-    function sellStock() {
-      if (userStocks > 0) {
-        stockPrice -= 0.01;
-        userStocks--;
-        document.getElementById("stockPrice").textContent = stockPrice.toFixed(2) + " €";
-        updateChart();
-      } else {
-        alert("Du besitzt keine Aktien.");
-      }
-    }
-
-    updateChart();
-  </script></body>
+</body>
 </html>
