@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Nexus Stock View – Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #0f172a;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      font-family: 'Inter', sans-serif;
       color: white;
       display: flex;
       flex-direction: column;
@@ -17,32 +18,43 @@
       height: 100vh;
     }
     img {
-      width: 150px;
-      margin-bottom: 30px;
+      width: 180px;
+      margin-bottom: 40px;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+    }
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
     button {
-      padding: 12px 20px;
-      margin: 10px;
-      background-color: #2563eb;
+      padding: 14px 28px;
+      background: #2563eb;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       color: white;
       font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease, transform 0.2s ease;
     }
     button:hover {
-      background-color: #1d4ed8;
+      background: #1d4ed8;
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
   <!-- DEIN LOGO -->
-  <img src="nexus_logo_icon.png" alt="Nexus Stock View Logo">
+  <img src="nexus_logo.png" alt="Nexus Stock View Logo">
 
   <!-- BUTTONS -->
-  <button onclick="window.location.href='login.html'">Mit Code anmelden</button>
-  <button onclick="window.location.href='generate.html'">Neuen Code generieren</button>
+  <div class="button-container">
+    <button onclick="window.location.href='login.html'">Mit Code anmelden</button>
+    <button onclick="window.location.href='generate.html'">Neuen Code generieren</button>
+  </div>
 
 </body>
 </html>
